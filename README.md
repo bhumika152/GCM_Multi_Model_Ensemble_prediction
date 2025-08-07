@@ -5,6 +5,7 @@ This repository hosts an advanced rainfall prediction model that integrates Glob
 It provides robust monthly rainfall forecasts across 4,641 grid points covering India.
 
 🚀 Key Features
+
 Hybrid Data Integration: Combines IMD observations with multi-GCM ensemble predictions.
 
 TIF Uncertainty Quantification: Dynamically weights GCM grids based on:
@@ -64,16 +65,13 @@ Falsehood (F): Pattern mismatch (temporal inconsistency)
 
 Indeterminacy (I): Error spread (MAE + max deviation)
 
-Weighting Formula:
+Weighting Formula:  Nonlinear weighting (best-performing)
 
-python
-Copy
-Edit
-# Nonlinear weighting (best-performing)
 weights = (truth_scores ** 3) / sum(truth_scores ** 3)
 Apply weights to GCM grids → downweight noisy areas
 
  4️⃣ Sequence Preparation
+ 
 Create rolling windows of 12-month sequences:
 
 Inputs:
@@ -89,7 +87,11 @@ Target:
 Next month’s rainfall → [n, 4641]
 
 5️⃣ Model Architecture
+
 Model Name: Attention_LSTM
+
+<img width="544" height="572" alt="image" src="https://github.com/user-attachments/assets/93829903-7ba6-4513-ae30-3c0de2ec3fe2" />
+
 
 Input Stream	Shape
 Observed Data	(None, 12, 4641)
@@ -140,6 +142,7 @@ Correlation	0.9376
 
 KGE	0.9016
 
+<img width="774" height="833" alt="image" src="https://github.com/user-attachments/assets/0226f512-ab5f-4670-9b75-76e1afd95958" />
 
 
 Time-series comparison: predicted vs observed
